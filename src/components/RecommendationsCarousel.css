@@ -1,0 +1,26 @@
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ddd;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #007bff;
+    /* Blue active dot as seen in image */
+}
+
+.dot:hover {
+    background-color: #bbb;
+}

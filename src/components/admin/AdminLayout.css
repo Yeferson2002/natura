@@ -1,0 +1,268 @@
+/* Admin Layout Styles */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    position: relative;
+}
+
+/* Sidebar Styles */
+.admin-sidebar {
+    width: 260px;
+    background-color: white;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 50;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Main Content Styles */
+.admin-main {
+    flex: 1;
+    margin-left: 260px;
+    padding: 2rem;
+    transition: margin-left 0.3s ease-in-out;
+    width: 100%;
+}
+
+/* Mobile Header (Hamburger) */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #333;
+    margin-right: 1rem;
+}
+
+/* Overlay for mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+}
+
+.mobile-close-btn {
+    display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .admin-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .admin-main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .mobile-close-btn {
+        display: block;
+    }
+
+    .sidebar-overlay.open {
+        display: block;
+    }
+
+    .desktop-only-user {
+        display: none !important;
+    }
+}
+
+/* --- Added Styles for Admin Pages (Products, etc.) --- */
+
+/* Admin Page General */
+.admin-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.admin-page-title {
+    font-size: 1.8rem;
+    color: #333;
+    font-family: serif;
+    margin: 0;
+}
+
+/* Buttons */
+.btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #F48646;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(244, 134, 70, 0.3);
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #e07b3e;
+}
+
+/* Filters Bar */
+.admin-filters-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    min-width: 300px;
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.filter-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 30px;
+    padding: 0.5rem 1.5rem;
+}
+
+/* Table */
+.admin-table-container {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 1.25rem 1.5rem;
+    color: #666;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #f9fafb;
+}
+
+.admin-table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+}
+
+.admin-table tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-active {
+    background-color: #ecfdf5;
+    color: #10b981;
+}
+
+.status-inactive {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: none;
+    background-color: transparent;
+    color: #3b82f6;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.action-btn.delete {
+    color: #ef4444;
+}
+
+.action-btn:hover {
+    background-color: #f3f4f6;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pagination-btn {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-btn.active {
+    background-color: #F48646;
+    color: white;
+    border-color: #F48646;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
