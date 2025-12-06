@@ -27,7 +27,7 @@ const Cart = () => {
     useEffect(() => {
         const fetchRecommendations = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/products');
+                const response = await fetch('https://natura-jl7g.onrender.com/api/products');
                 const data = await response.json();
                 // Shuffle or select random products for recommendations
                 const shuffled = data.sort(() => 0.5 - Math.random());

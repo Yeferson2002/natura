@@ -19,7 +19,7 @@ const ProductDetail = () => {
             try {
                 setLoading(true);
                 // Fetch current product
-                const response = await fetch(`http://localhost:5000/api/products/${id}`);
+                const response = await fetch(`https://natura-jl7g.onrender.com/api/products/${id}`);
                 if (!response.ok) {
                     throw new Error('Producto no encontrado');
                 }
@@ -27,7 +27,7 @@ const ProductDetail = () => {
                 setProduct(data);
 
                 // Fetch all products for recommendations (in a real app, this might be a specific "related" endpoint)
-                const relatedResponse = await fetch('http://localhost:5000/api/products');
+                const relatedResponse = await fetch('https://natura-jl7g.onrender.com/api/products');
                 const relatedData = await relatedResponse.json();
                 // Filter out the current product from recommendations
                 setRelatedProducts(relatedData.filter(p => p.id !== parseInt(id)));

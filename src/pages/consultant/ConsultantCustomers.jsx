@@ -21,7 +21,7 @@ const ConsultantCustomers = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            const response = await fetch('http://localhost:5000/api/clients', config);
+            const response = await fetch('https://natura-jl7g.onrender.com/api/clients', config);
             const data = await response.json();
             setClients(data);
         } catch (error) {

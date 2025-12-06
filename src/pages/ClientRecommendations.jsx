@@ -24,7 +24,7 @@ const ClientRecommendations = () => {
                 },
             };
             const clientId = user._id || user.id;
-            const response = await fetch(`http://localhost:5000/api/recommendations/client/${clientId}`, config);
+            const response = await fetch(`https://natura-jl7g.onrender.com/api/recommendations/client/${clientId}`, config);
 
             if (response.ok) {
                 const data = await response.json();

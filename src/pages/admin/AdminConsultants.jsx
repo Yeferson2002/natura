@@ -16,7 +16,7 @@ const AdminConsultants = () => {
 
     const fetchConsultants = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/users/consultants');
+            const response = await fetch('https://natura-jl7g.onrender.com/api/users/consultants');
             const data = await response.json();
 
             // Transform data to match UI needs
@@ -55,7 +55,7 @@ const AdminConsultants = () => {
 
     const handleApprove = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/users/${id}/approve`, {
+            const response = await fetch(`https://natura-jl7g.onrender.com/api/users/${id}/approve`, {
                 method: 'PUT'
             });
             const data = await response.json();
@@ -75,7 +75,7 @@ const AdminConsultants = () => {
 
     const handleView = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/users/${id}`);
+            const response = await fetch(`https://natura-jl7g.onrender.com/api/users/${id}`);
             const data = await response.json();
             if (response.ok) {
                 setSelectedConsultant(data);
@@ -89,7 +89,7 @@ const AdminConsultants = () => {
 
     const handleEdit = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/users/${id}`);
+            const response = await fetch(`https://natura-jl7g.onrender.com/api/users/${id}`);
             const data = await response.json();
             if (response.ok) {
                 setSelectedConsultant(data);

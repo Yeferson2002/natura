@@ -7,13 +7,14 @@ import { useCart } from '../../context/CartContext';
 const GiftSection = () => {
     const [gifts, setGifts] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
     const scrollRef = useRef(null);
     const { addToCart } = useCart();
 
     React.useEffect(() => {
         const fetchGifts = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/products');
+                const response = await fetch('https://natura-jl7g.onrender.com/api/products');
                 const data = await response.json();
 
                 // Filter for gifts if needed, or just use all products for now
@@ -25,6 +26,7 @@ const GiftSection = () => {
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching gifts:', error);
+                setError('Error cargando regalos. Verifica la conexión o recarga.');
                 setLoading(false);
             }
         };
@@ -51,6 +53,10 @@ const GiftSection = () => {
 
     if (loading) {
         return <div className="container" style={{ textAlign: 'center', padding: '2rem' }}>Cargando regalos...</div>;
+    }
+
+    if (error) {
+        return <div className="container" style={{ textAlign: 'center', padding: '2rem', color: 'red' }}>{error}</div>;
     }
 
     return (

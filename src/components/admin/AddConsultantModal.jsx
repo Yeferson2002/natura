@@ -53,8 +53,8 @@ const AddConsultantModal = ({ isOpen, onClose, onConsultantAdded, initialData = 
 
         try {
             const url = initialData
-                ? `http://localhost:5000/api/users/${initialData.id}`
-                : 'http://localhost:5000/api/users/consultants';
+                ? `https://natura-jl7g.onrender.com/api/users/${initialData.id}`
+                : 'https://natura-jl7g.onrender.com/api/users/consultants';
 
             const method = initialData ? 'PUT' : 'POST';
 

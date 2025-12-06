@@ -129,7 +129,7 @@ const AIChatModal = ({ isOpen, onClose, client }) => {
                 }),
             };
 
-            const response = await fetch('http://localhost:5000/api/ai/chat', config);
+            const response = await fetch('https://natura-jl7g.onrender.com/api/ai/chat', config);
             const data = await response.json();
 
             if (response.ok) {
@@ -336,7 +336,7 @@ const ProductCard = ({ id, name, price, image, reason, clientId }) => {
                 }),
             };
 
-            const response = await fetch('http://localhost:5000/api/recommendations', config);
+            const response = await fetch('https://natura-jl7g.onrender.com/api/recommendations', config);
 
             if (response.ok) {
                 setRecommended(true);

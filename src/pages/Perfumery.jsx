@@ -14,7 +14,7 @@ const Perfumery = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/products');
+                const response = await fetch('https://natura-jl7g.onrender.com/api/products');
                 const data = await response.json();
                 // Filtrar por categoría 'Perfumería' usando la relación de base de datos
                 const perfumeryProducts = data.filter(product =>
@@ -99,7 +99,7 @@ const Perfumery = () => {
                                                 const imgPath = (product.images && product.images.length > 0) ? product.images[0] : product.image;
                                                 if (!imgPath) return 'https://via.placeholder.com/280';
                                                 if (imgPath.startsWith('http')) return imgPath;
-                                                return `http://localhost:5000${imgPath}`;
+                                                return `https://natura-jl7g.onrender.com${imgPath}`;
                                             })()}
                                             alt={product.name}
                                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}

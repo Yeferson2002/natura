@@ -13,7 +13,7 @@ const ConsultantOrders = () => {
     const fetchOrders = async () => {
         try {
             const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-            const response = await fetch('http://localhost:5000/api/orders/myorders', {
+            const response = await fetch('https://natura-jl7g.onrender.com/api/orders/myorders', {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`,
                 },

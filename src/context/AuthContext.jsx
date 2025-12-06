@@ -26,7 +26,8 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await fetch('/api/auth/login', {
+            const baseUrl = import.meta.env.VITE_API_URL || '';
+            const response = await fetch(`${baseUrl}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,7 +52,8 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (userData) => {
         try {
-            const response = await fetch('/api/auth/register', {
+            const baseUrl = import.meta.env.VITE_API_URL || '';
+            const response = await fetch(`${baseUrl}/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

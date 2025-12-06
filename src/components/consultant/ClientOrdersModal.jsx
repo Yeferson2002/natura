@@ -22,7 +22,7 @@ const ClientOrdersModal = ({ isOpen, onClose, client }) => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            const response = await fetch(`http://localhost:5000/api/orders/client/${client.id}`, config);
+            const response = await fetch(`https://natura-jl7g.onrender.com/api/orders/client/${client.id}`, config);
             const data = await response.json();
             setOrders(data);
         } catch (error) {
