@@ -6,15 +6,15 @@ USE test;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- Limpiar tablas por si acaso (para evitar duplicados)
-TRUNCATE TABLE `orderitems`;
-TRUNCATE TABLE `orders`;
-TRUNCATE TABLE `products`;
-TRUNCATE TABLE `clients`;
-TRUNCATE TABLE `users`;
-TRUNCATE TABLE `categories`;
+TRUNCATE TABLE `OrderItems`;
+TRUNCATE TABLE `Orders`;
+TRUNCATE TABLE `Products`;
+TRUNCATE TABLE `Clients`;
+TRUNCATE TABLE `Users`;
+TRUNCATE TABLE `Categories`;
 
 -- 1. Categorías
-INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Categories` (`id`, `name`, `slug`, `description`, `createdAt`, `updatedAt`) VALUES
 (1, 'Perfumería', 'perfumera', 'Fragancias únicas que combinan arte y ciencia.', '2025-12-02 23:41:38', '2025-12-02 23:46:38'),
 (6, 'Cuidados Diarios', 'cuidados-diarios', 'Productos para el cuidado diario de tu piel.', '2025-12-02 23:46:38', '2025-12-02 23:46:38'),
 (7, 'Cabello', 'cabello', 'Tratamientos y cuidados para todo tipo de cabello.', '2025-12-02 23:46:38', '2025-12-02 23:46:38'),
@@ -25,7 +25,7 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `createdAt`, `upd
 
 -- 2. Usuarios (Admins y Consultoras)
 -- Passwords hasheadas incluidas
-INSERT INTO `users` (`id`, `firstName`, `lastName`, `dni`, `phone`, `email`, `password`, `role`, `consultantLevel`, `points`, `createdAt`, `updatedAt`, `status`, `monthlySales`) VALUES
+INSERT INTO `Users` (`id`, `firstName`, `lastName`, `dni`, `phone`, `email`, `password`, `role`, `consultantLevel`, `points`, `createdAt`, `updatedAt`, `status`, `monthlySales`) VALUES
 (1, 'Admin', 'User', '12345678', '', 'admin@example.com', '$2b$10$OozDdjWlUgB7X2j992GI9.5LpqfXAFgAUXOfv/HZJYmy4sL4WoSpC', 'admin', 'Bronce', 0, '2025-11-28 02:38:20', '2025-11-28 02:38:20', 'Activa', 0.00),
 (2, 'Consultora', 'Natura', '87654321', '917458125', 'consultora@example.com', '$2b$10$wYVwXQs9/yN62tv.TZ.NzuVCqO9ISCZC53zywpbRYQ/gZiugI5X3y', 'consultant', 'Oro', 1500, '2025-12-02 11:43:04', '2025-12-02 11:43:04', 'Activa', 0.00),
 (4, 'Test', 'Admin', '99999999', '', 'admin_test@example.com', '$2b$10$Ckykp0hGoMVtkgFvqR6AqeENUcFIXvMyCkKkfmjhXkNT7xVIFcSoq', 'admin', 'Bronce', 0, '2025-11-28 02:35:06', '2025-11-28 02:35:06', 'Activa', 0.00),
@@ -37,7 +37,7 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `dni`, `phone`, `email`, `pa
 (10, 'Patricia', 'Lima', '40432109', '', 'patricia.lima@email.com', '$2b$10$L3lEMisuQJl/7jLcb8tqlOL2/8wyq3l5CWvSaSJg4bW8CN/oXq7KS', 'consultant', 'Plata', 0, '2025-12-01 14:05:57', '2025-12-01 14:56:32', 'Activa', 0.00);
 
 -- 3. Productos
-INSERT INTO `products` (`id`, `name`, `brand`, `price`, `originalPrice`, `discount`, `stock`, `image`, `description`, `status`, `createdAt`, `updatedAt`, `image2`, `image3`, `CategoryId`) VALUES
+INSERT INTO `Products` (`id`, `name`, `brand`, `price`, `originalPrice`, `discount`, `stock`, `image`, `description`, `status`, `createdAt`, `updatedAt`, `image2`, `image3`, `CategoryId`) VALUES
 (1, 'Regalo Essencial Exclusivo Masculino', 'Essencial', 115.00, 230.00, 50, 10, 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dw9bf139b7/ProdutoJoia/mobile/217081.jpg', 'Una fragancia amaderada intensa que combina la potencia de las maderas profundas con notas de especias frías.', 'Disponible', '2025-12-02 23:17:34', '2025-12-02 23:17:34', 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dwbadeb5cf/products/NATPER-217081_1.jpg', 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dwd70c0798/products/NATPER-217081_2.jpg', 1),
 (2, 'Regalo Homem Potence', 'Homem', 96.00, 160.00, 40, 15, 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dw8ce2b50c/ProdutoJoia/mobile/217075.jpg', 'Para el hombre que se expresa con intensidad. Una combinación marcante de maderas nobles con pimienta negra.', 'Disponible', '2025-12-02 23:14:14', '2025-12-02 23:14:14', 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dw972e14aa/products/NATPER-217075_1.jpg', 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dw5a6b7ff8/products/NATPER-217075_2.jpg', 1),
 (3, 'Regalo Ritual Humor Paz y Humor', 'Humor', 84.00, 120.00, 30, 20, 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dwfc1cc325/ProdutoJoia/mobile/217074.jpg', 'Una fragancia irreverente y llena de humor. Notas frutales mezcladas con un toque de especias.', 'Disponible', '2025-12-02 23:15:10', '2025-12-02 23:15:10', 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dwefb84ee6/products/NATPER-217074_1.jpg', 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dwa96989b9/products/NATPER-217074_2.jpg', 1),
@@ -50,7 +50,7 @@ INSERT INTO `products` (`id`, `name`, `brand`, `price`, `originalPrice`, `discou
 (10, 'Ekos Pulpa hidratante corporal castaña 400 ml', 'Ekos', 69.00, 69.00, 0, 10, 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dwe760345e/ProdutoJoia/mobile/80936.jpg', 'revitaliza tu piel con el poder de la castaña', 'Disponible', '2025-12-03 00:08:02', '2025-12-03 00:08:02', 'https://production.na01.natura.com/on/demandware.static/-/Sites-natura-pe-storefront-catalog/default/dw10010d26/products/NATPER-80936_1.jpg', NULL, 6);
 
 -- 4. Clients
-INSERT INTO `clients` (`id`, `firstName`, `lastName`, `email`, `phone`, `createdAt`, `updatedAt`, `password`, `ConsultantId`) VALUES
+INSERT INTO `Clients` (`id`, `firstName`, `lastName`, `email`, `phone`, `createdAt`, `updatedAt`, `password`, `ConsultantId`) VALUES
 (1, 'María', 'González', 'maria@example.com', '999111222', '2025-12-02 12:07:21', '2025-12-02 12:07:21', '$2b$10$IreVTdvNVTtD9G9K9PSFrOTIpfG/EAQpxm7qEWTnYDAVmMipTVa5q', NULL),
 (2, 'Ana', 'Pérez', 'ana@example.com', '999333444', '2025-12-02 12:07:21', '2025-12-02 12:07:21', '$2b$10$oeJMGVrbVFIMm8peEzcWVOqfU1VTCEbL/U4nASAx2ARbZyR0nNg/u', NULL);
 

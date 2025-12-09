@@ -19,7 +19,12 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+    origin: ['http://localhost:5173', 'https://natura-chi.vercel.app', 'http://localhost:3000'],
+    optionsSuccessStatus: 200,
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 // Make uploads folder static
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
@@ -47,13 +52,13 @@ app.get('/api/seed-database', async (req, res) => {
     try {
         // 1. Crear Categorías
         const categoriesData = [
-            { id: 1, name: 'perfumería', description: 'Fragancias únicas.' },
-            { id: 6, name: 'cuidados diarios', description: 'Cuidado de piel.' },
-            { id: 7, name: 'cabello', description: 'Tratamientos capilares.' },
-            { id: 8, name: 'maquillaje', description: 'Realza tu belleza.' },
-            { id: 9, name: 'rostro', description: 'Cuidado facial.' },
-            { id: 10, name: 'regalos', description: 'Opciones para regalar.' },
-            { id: 11, name: 'casa', description: 'Perfuma tu hogar.' }
+            { id: 1, name: 'perfumería', slug: 'perfumeria', description: 'Fragancias únicas.' },
+            { id: 6, name: 'cuidados diarios', slug: 'cuidados-diarios', description: 'Cuidado de piel.' },
+            { id: 7, name: 'cabello', slug: 'cabello', description: 'Tratamientos capilares.' },
+            { id: 8, name: 'maquillaje', slug: 'maquillaje', description: 'Realza tu belleza.' },
+            { id: 9, name: 'rostro', slug: 'rostro', description: 'Cuidado facial.' },
+            { id: 10, name: 'regalos', slug: 'regalos', description: 'Opciones para regalar.' },
+            { id: 11, name: 'casa', slug: 'casa', description: 'Perfuma tu hogar.' }
         ];
 
         for (const cat of categoriesData) {

@@ -39,6 +39,8 @@ const Recommendation = sequelize.define('Recommendation', {
             key: 'id'
         }
     }
+}, {
+    tableName: 'recommendations'
 });
 
 module.exports = Recommendation;

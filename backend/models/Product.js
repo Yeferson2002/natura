@@ -51,6 +51,8 @@ const Product = sequelize.define('Product', {
         type: DataTypes.ENUM('Disponible', 'Agotado'),
         defaultValue: 'Disponible'
     }
+}, {
+    tableName: 'products'
 });
 
 const Category = require('./Category');

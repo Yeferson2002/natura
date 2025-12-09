@@ -74,6 +74,8 @@ const Order = sequelize.define('Order', {
         type: DataTypes.ENUM('Pendiente', 'Procesando', 'Enviado', 'Entregado', 'Cancelado'),
         defaultValue: 'Pendiente'
     }
+}, {
+    tableName: 'orders'
 });
 
 // Order Items will be a separate table related to Order
@@ -101,6 +103,8 @@ const OrderItem = sequelize.define('OrderItem', {
             key: 'id'
         }
     }
+}, {
+    tableName: 'orderitems'
 });
 
 module.exports = { Order, OrderItem };

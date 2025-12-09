@@ -71,7 +71,8 @@ const User = sequelize.define('User', {
                 user.password = await bcrypt.hash(user.password, salt);
             }
         }
-    }
+    },
+    tableName: 'users'
 });
 
 User.prototype.matchPassword = async function (enteredPassword) {
