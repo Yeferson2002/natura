@@ -115,7 +115,9 @@ const AIChatModal = ({ isOpen, onClose, client }) => {
         setLoading(true);
 
         try {
-            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) throw new Error('No user info found');
+            const userInfo = JSON.parse(userInfoString);
             const config = {
                 method: 'POST',
                 headers: {
@@ -129,7 +131,7 @@ const AIChatModal = ({ isOpen, onClose, client }) => {
                 }),
             };
 
-            const response = await fetch('https://natura-jl7g.onrender.com/api/ai/chat', config);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/ai/chat`, config);
             const data = await response.json();
 
             if (response.ok) {
@@ -179,7 +181,7 @@ const AIChatModal = ({ isOpen, onClose, client }) => {
                 {/* Header */}
                 <div style={{
                     padding: '1rem',
-                    backgroundColor: '#F48646',
+                    backgroundColor: 'var(--color-primary)',
                     color: 'white',
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -239,7 +241,7 @@ const AIChatModal = ({ isOpen, onClose, client }) => {
                                 borderRadius: '12px',
                                 borderTopLeftRadius: msg.role === 'user' ? '12px' : '0',
                                 borderTopRightRadius: msg.role === 'user' ? '0' : '12px',
-                                backgroundColor: msg.role === 'user' ? '#F48646' : 'white',
+                                backgroundColor: msg.role === 'user' ? 'var(--color-primary)' : 'white',
                                 color: msg.role === 'user' ? 'white' : '#374151',
                                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
                                 fontSize: '0.95rem',
@@ -293,7 +295,7 @@ const AIChatModal = ({ isOpen, onClose, client }) => {
                         type="submit"
                         disabled={loading || !inputMessage.trim()}
                         style={{
-                            backgroundColor: '#F48646',
+                            backgroundColor: 'var(--color-primary)',
                             color: 'white',
                             border: 'none',
                             borderRadius: '50%',
@@ -322,7 +324,9 @@ const ProductCard = ({ id, name, price, image, reason, clientId }) => {
     const handleRecommend = async () => {
         setLoading(true);
         try {
-            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) return;
+            const userInfo = JSON.parse(userInfoString);
             const config = {
                 method: 'POST',
                 headers: {
@@ -336,7 +340,7 @@ const ProductCard = ({ id, name, price, image, reason, clientId }) => {
                 }),
             };
 
-            const response = await fetch('https://natura-jl7g.onrender.com/api/recommendations', config);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recommendations`, config);
 
             if (response.ok) {
                 setRecommended(true);
@@ -370,7 +374,7 @@ const ProductCard = ({ id, name, price, image, reason, clientId }) => {
             />
             <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '0.85rem', fontWeight: '600', color: '#374151' }}>{name}</div>
-                <div style={{ fontSize: '0.8rem', color: '#F48646', fontWeight: '500' }}>S/ {price}</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--color-primary)', fontWeight: '500' }}>S/ {price}</div>
                 {reason && <div style={{ fontSize: '0.7rem', color: '#6b7280', marginTop: '0.2rem', fontStyle: 'italic' }}>"{reason}"</div>}
             </div>
             <button
