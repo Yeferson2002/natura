@@ -26,7 +26,7 @@ const LoginProfessional = () => {
             const data = await response.json();
 
             if (response.ok) {
-                sessionStorage.setItem('userInfo', JSON.stringify(data));
+                localStorage.setItem('userInfo', JSON.stringify(data));
 
                 if (data.role === 'admin') {
                     navigate('/admin/dashboard');
