@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Package, Calendar, DollarSign, ChevronDown, ChevronUp, User } from 'lucide-react';
 
 const ConsultantOrders = () => {
+    const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expandedOrder, setExpandedOrder] = useState(null);
@@ -12,8 +14,18 @@ const ConsultantOrders = () => {
 
     const fetchOrders = async () => {
         try {
-            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-            const response = await fetch('https://natura-jl7g.onrender.com/api/orders/myorders', {
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) {
+                navigate('/professional-login');
+                return;
+            }
+            const userInfo = JSON.parse(userInfoString);
+            if (!userInfo || !userInfo.token) {
+                navigate('/professional-login');
+                return;
+            }
+
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/myorders`, {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
@@ -99,7 +111,7 @@ const ConsultantOrders = () => {
                             >
                                 <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flex: 1 }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                        <div style={{ padding: '0.5rem', backgroundColor: '#fff7ed', borderRadius: '8px', color: '#F48646' }}>
+                                        <div style={{ padding: '0.5rem', backgroundColor: 'var(--color-secondary)', borderRadius: '8px', color: 'var(--color-primary)' }}>
                                             <Package size={24} />
                                         </div>
                                         <div>
