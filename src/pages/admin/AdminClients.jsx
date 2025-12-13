@@ -23,7 +23,7 @@ const AdminClients = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            const response = await fetch('https://natura-jl7g.onrender.com/api/clients', config);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients`, config);
             const data = await response.json();
             setClients(data);
         } catch (error) {
@@ -41,7 +41,7 @@ const AdminClients = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            const response = await fetch('https://natura-jl7g.onrender.com/api/users/consultants', config);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/consultants`, config);
             const data = await response.json();
             setConsultants(data);
         } catch (error) {
@@ -71,7 +71,7 @@ const AdminClients = () => {
                 body: JSON.stringify({ consultantId: selectedConsultant || null }),
             };
 
-            const response = await fetch(`https://natura-jl7g.onrender.com/api/clients/${clientId}/consultant`, config);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients/${clientId}/consultant`, config);
 
             if (response.ok) {
                 const updatedClient = await response.json();

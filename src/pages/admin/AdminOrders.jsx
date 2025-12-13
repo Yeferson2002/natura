@@ -18,7 +18,7 @@ const AdminOrders = () => {
                         Authorization: `Bearer ${userInfo.token}`,
                     },
                 };
-                const response = await fetch('https://natura-jl7g.onrender.com/api/orders', config);
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, config);
                 const data = await response.json();
 
                 const transformedOrders = data.map(order => ({

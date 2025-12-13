@@ -18,7 +18,7 @@ const AdminProducts = () => {
     const fetchProducts = async () => {
         setLoading(true);
         try {
-            const response = await fetch('/api/products');
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products`);
             const data = await response.json();
             console.log('Fetched products:', data);
             if (Array.isArray(data)) {
@@ -48,8 +48,12 @@ const AdminProducts = () => {
         if (!productToDelete) return;
 
         try {
-            const response = await fetch(`/api/products/${productToDelete.id}`, {
-                method: 'DELETE'
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${productToDelete.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
             });
 
             if (response.ok) {
