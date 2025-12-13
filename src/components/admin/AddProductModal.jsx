@@ -28,7 +28,7 @@ const AddProductModal = ({ isOpen, onClose, onProductAdded, productToEdit }) => 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('https://natura-jl7g.onrender.com/api/categories');
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`);
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {
@@ -179,8 +179,15 @@ const AddProductModal = ({ isOpen, onClose, onProductAdded, productToEdit }) => 
                 headers['Content-Type'] = 'application/json';
             }
 
-            const url = productToEdit ? `/api/products/${productToEdit.id}` : '/api/products';
+            const url = productToEdit
+                ? `${import.meta.env.VITE_API_URL}/api/products/${productToEdit.id}`
+                : `${import.meta.env.VITE_API_URL}/api/products`;
             const method = productToEdit ? 'PUT' : 'POST';
+
+            const token = localStorage.getItem('token');
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
 
             const response = await fetch(url, {
                 method: method,
