@@ -16,15 +16,15 @@ const AdminOrders = () => {
             try {
                 const userInfoString = localStorage.getItem('userInfo');
                 if (!userInfoString) {
-                    console.warn('No userInfo found in localStorage');
-                    navigate('/professional-login');
+                    console.log('No userInfo found in localStorage (Debug Mode: Redirect disabled)');
+                    // navigate('/professional-login');
                     return;
                 }
                 const userInfo = JSON.parse(userInfoString);
 
                 if (!userInfo || !userInfo.token) {
-                    console.warn('Invalid user info or no token');
-                    navigate('/professional-login');
+                    console.log('Invalid user info or no token (Debug Mode: Redirect disabled)');
+                    // navigate('/professional-login');
                     return;
                 }
 
@@ -36,12 +36,21 @@ const AdminOrders = () => {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, config);
 
                 if (response.status === 401) {
-                    localStorage.removeItem('userInfo');
-                    navigate('/professional-login');
+                    console.error('Error 401: Unauthorized (Debug Mode: Redirect disabled)');
+                    // localStorage.removeItem('userInfo');
+                    // navigate('/professional-login');
+                    return;
+                }
+
+                if (!response.ok) {
+                    console.error('Response not ok:', response.status, response.statusText);
+                    const text = await response.text();
+                    console.error('Response body:', text);
                     return;
                 }
 
                 const data = await response.json();
+                console.log('Orders data:', data);
 
                 const transformedOrders = data.map(order => ({
                     id: `#ORD-${order.id.toString().padStart(3, '0')}`,
