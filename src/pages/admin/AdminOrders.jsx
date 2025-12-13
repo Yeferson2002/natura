@@ -8,63 +8,61 @@ const AdminOrders = () => {
     const [loading, setLoading] = useState(true);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                try {
-                    const userInfoString = localStorage.getItem('userInfo');
-                    if (!userInfoString) {
-                        navigate('/professional-login');
-                        return;
-                    }
-                    const userInfo = JSON.parse(userInfoString);
-
-                    if (!userInfo || !userInfo.token) {
-                        navigate('/professional-login');
-                        return;
-                    }
-
-                    const config = {
-                        headers: {
-                            Authorization: `Bearer ${userInfo.token}`,
-                        },
-                    };
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, config);
-                    const data = await response.json();
-
-                    const transformedOrders = data.map(order => ({
-                        id: `#ORD-${order.id.toString().padStart(3, '0')}`,
-                        customer: order.Client ? `${order.Client.firstName} ${order.Client.lastName}` : 'Cliente Desconocido',
-                        email: order.Client ? order.Client.email : '',
-                        date: new Date(order.createdAt).toLocaleDateString('es-PE', { day: 'numeric', month: 'short', year: 'numeric' }),
-                        total: `S/ ${parseFloat(order.totalPrice).toFixed(2)}`,
-                        status: order.status,
-                        items: order.OrderItems ? order.OrderItems.reduce((acc, item) => acc + item.qty, 0) : 0,
-                        payment: order.paymentMethod,
-                        // Full details for modal
-                        shippingAddress: typeof order.shippingAddress === 'string' ? JSON.parse(order.shippingAddress) : order.shippingAddress,
-                        itemsPrice: parseFloat(order.itemsPrice).toFixed(2),
-                        taxPrice: parseFloat(order.taxPrice).toFixed(2),
-                        shippingPrice: parseFloat(order.shippingPrice).toFixed(2),
-                        isPaid: order.isPaid,
-                        orderItems: order.OrderItems,
-                        itemsCount: order.OrderItems ? order.OrderItems.reduce((acc, item) => acc + item.qty, 0) : 0
-                    }));
-
-                    setOrders(transformedOrders);
-                } catch (error) {
-                    console.error('Error fetching orders:', error);
-                } finally {
-                    setLoading(false);
+                const userInfoString = localStorage.getItem('userInfo');
+                if (!userInfoString) {
+                    navigate('/professional-login');
+                    return;
                 }
-            };
+                const userInfo = JSON.parse(userInfoString);
 
-            fetchOrders();
-        }, []);
+                if (!userInfo || !userInfo.token) {
+                    navigate('/professional-login');
+                    return;
+                }
+
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${userInfo.token}`,
+                    },
+                };
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, config);
+                const data = await response.json();
+
+                const transformedOrders = data.map(order => ({
+                    id: `#ORD-${order.id.toString().padStart(3, '0')}`,
+                    customer: order.Client ? `${order.Client.firstName} ${order.Client.lastName}` : 'Cliente Desconocido',
+                    email: order.Client ? order.Client.email : '',
+                    date: new Date(order.createdAt).toLocaleDateString('es-PE', { day: 'numeric', month: 'short', year: 'numeric' }),
+                    total: `S/ ${parseFloat(order.totalPrice).toFixed(2)}`,
+                    status: order.status,
+                    items: order.OrderItems ? order.OrderItems.reduce((acc, item) => acc + item.qty, 0) : 0,
+                    payment: order.paymentMethod,
+                    // Full details for modal
+                    shippingAddress: typeof order.shippingAddress === 'string' ? JSON.parse(order.shippingAddress) : order.shippingAddress,
+                    itemsPrice: parseFloat(order.itemsPrice).toFixed(2),
+                    taxPrice: parseFloat(order.taxPrice).toFixed(2),
+                    shippingPrice: parseFloat(order.shippingPrice).toFixed(2),
+                    isPaid: order.isPaid,
+                    orderItems: order.OrderItems,
+                    itemsCount: order.OrderItems ? order.OrderItems.reduce((acc, item) => acc + item.qty, 0) : 0
+                }));
+
+                setOrders(transformedOrders);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, []);
 
     // Pagination Logic
     const indexOfLastItem = currentPage * itemsPerPage;

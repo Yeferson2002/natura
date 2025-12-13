@@ -48,7 +48,12 @@ const AdminProducts = () => {
         if (!productToDelete) return;
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) {
+                alert('No hay sesión activa');
+                return;
+            }
+            const userInfo = JSON.parse(userInfoString);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${productToDelete.id}`, {
                 method: 'DELETE',
                 headers: {

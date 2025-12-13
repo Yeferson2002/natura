@@ -17,7 +17,12 @@ const AdminClients = () => {
 
     const fetchClients = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) return;
+            const userInfo = JSON.parse(userInfoString);
+
+            if (!userInfo || !userInfo.token) return;
+
             const config = {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`,
@@ -35,7 +40,12 @@ const AdminClients = () => {
 
     const fetchConsultants = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) return;
+            const userInfo = JSON.parse(userInfoString);
+
+            if (!userInfo || !userInfo.token) return;
+
             const config = {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`,
@@ -61,7 +71,13 @@ const AdminClients = () => {
 
     const handleSaveConsultant = async (clientId) => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) {
+                alert('No hay sesión activa');
+                return;
+            }
+            const userInfo = JSON.parse(userInfoString);
+
             const config = {
                 method: 'PUT',
                 headers: {
