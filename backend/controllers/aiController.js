@@ -8,6 +8,9 @@ const Product = require('../models/Product');
 // @route   POST /api/ai/chat
 // @access  Private/Consultant
 const chatWithClientPlan = asyncHandler(async (req, res) => {
+    // DEBUG: Immediate probe to test connection
+    // return res.json({ response: "Conexión exitosa con el backend. El problema está en la IA." });
+
     const { clientId, message, history } = req.body;
 
     if (!clientId || !message) {
