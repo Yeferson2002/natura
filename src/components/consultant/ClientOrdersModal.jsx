@@ -16,13 +16,19 @@ const ClientOrdersModal = ({ isOpen, onClose, client }) => {
     const fetchOrders = async () => {
         setLoading(true);
         try {
-            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) {
+                console.error('No user info found in localStorage');
+                setLoading(false);
+                return;
+            }
+            const userInfo = JSON.parse(userInfoString);
             const config = {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            const response = await fetch(`https://natura-jl7g.onrender.com/api/orders/client/${client.id}`, config);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/client/${client.id}`, config);
             const data = await response.json();
             setOrders(data);
         } catch (error) {
@@ -95,7 +101,7 @@ const ClientOrdersModal = ({ isOpen, onClose, client }) => {
                             padding: '0.75rem',
                             borderRadius: '12px',
                             border: 'none',
-                            background: 'linear-gradient(135deg, #F48646 0%, #F26E21 100%)',
+                            background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%)',
                             color: 'white',
                             fontWeight: '600',
                             cursor: 'pointer',
@@ -103,7 +109,7 @@ const ClientOrdersModal = ({ isOpen, onClose, client }) => {
                             alignItems: 'center',
                             justifyContent: 'center',
                             gap: '0.5rem',
-                            boxShadow: '0 4px 12px rgba(244, 134, 70, 0.3)'
+                            boxShadow: '0 4px 12px rgba(255, 129, 202, 0.3)'
                         }}
                     >
                         <Bot size={20} />
