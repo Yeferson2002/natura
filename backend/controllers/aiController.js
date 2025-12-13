@@ -100,7 +100,7 @@ const chatWithClientPlan = asyncHandler(async (req, res) => {
 
     // 3. Call Gemini API
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const result = await model.generateContent(context);
         const response = await result.response;
         const text = response.text();
@@ -108,8 +108,10 @@ const chatWithClientPlan = asyncHandler(async (req, res) => {
         res.json({ response: text });
     } catch (error) {
         console.error("Error calling Gemini API:", error);
-        res.status(500);
-        throw new Error('Error generating AI response');
+        res.status(500).json({
+            message: 'Error generating AI response',
+            details: error.message
+        });
     }
 });
 

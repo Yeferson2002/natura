@@ -47,6 +47,17 @@ const Category = require('./models/Category'); // Import Category model
 // ... (rutas existentes)
 app.use('/api/recommendations', require('./routes/recommendationRoutes'));
 
+// 404 Handler (JSON) - Must be before errorHandler
+app.use((req, res, next) => {
+    const error = new Error(`Not Found - ${req.originalUrl}`);
+    res.status(404);
+    next(error);
+});
+
+// Error Handling Middleware (MUST be last)
+const { errorHandler } = require('./middleware/errorMiddleware');
+app.use(errorHandler);
+
 // --- RUTA MAGIC SEEDER ---
 app.get('/api/seed-database', async (req, res) => {
     try {
