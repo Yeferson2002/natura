@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, User, Phone, Mail, MapPin, Calendar } from 'lucide-react';
 import ClientOrdersModal from '../../components/consultant/ClientOrdersModal';
 
 const ConsultantCustomers = () => {
+    const navigate = useNavigate();
     const [clients, setClients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -15,13 +17,24 @@ const ConsultantCustomers = () => {
 
     const fetchClients = async () => {
         try {
-            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            const userInfoString = localStorage.getItem('userInfo');
+            if (!userInfoString) {
+                navigate('/professional-login');
+                return;
+            }
+            const userInfo = JSON.parse(userInfoString);
+
+            if (!userInfo || !userInfo.token) {
+                navigate('/professional-login');
+                return;
+            }
+
             const config = {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            const response = await fetch('https://natura-jl7g.onrender.com/api/clients', config);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients`, config);
             const data = await response.json();
             setClients(data);
         } catch (error) {
@@ -111,8 +124,8 @@ const ConsultantCustomers = () => {
                                     width: '48px',
                                     height: '48px',
                                     borderRadius: '50%',
-                                    backgroundColor: '#fff0e6',
-                                    color: '#F48646',
+                                    backgroundColor: 'var(--color-secondary)',
+                                    color: 'var(--color-primary)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
